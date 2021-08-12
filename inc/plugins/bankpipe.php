@@ -721,10 +721,9 @@ function bankpipe_apply_attachment_edits($apply = false)
         $edits = [
             [
                 'search' => [
-                    'if(!empty($attachedfile[\'error\']))',
+                    'else if(isset($attachedfile[\'aid\']) && $mybb->get_input(\'ajax\', MyBB::INPUT_INT) == 1)',
                     '{',
-                        '$ret[\'errors\'][] = $attachedfile[\'error\'];',
-                        '$mybb->input[\'action\'] = $action;',
+                        '$ret[\'success\'][] = array($attachedfile[\'aid\'], get_attachment_icon(get_extension($filename)), $filename, get_friendly_size($FILE[\'size\']));',
                     '}'
                 ],
                 'after' => [
